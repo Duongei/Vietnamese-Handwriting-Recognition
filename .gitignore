@@ -1,0 +1,9 @@
+__pycache__/
+.venv/
+outputs_smoke/
+outputs/
+*.parquet
+*.h5
+kaggle_run.ipynb
+KAGGLE_AGENT_GUIDE.md
+compare.py
