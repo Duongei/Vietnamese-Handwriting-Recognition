@@ -27,9 +27,7 @@ def main():
         folder = root / variant
         if not folder.exists():
             continue
-        info = read_json(folder / "train_info.json")
-        row = {"variant": variant, "params": info.get("params"), "epochs": info.get("epochs_run"),
-               "train_minutes": info.get("train_minutes")}
+        row = {"variant": variant}
         for name, file in [("val", "val_metrics.json"), ("test", "test_metrics.json"),
                            ("test_beam3", "test_metrics_beam3.json")]:
             metrics = read_json(folder / file)

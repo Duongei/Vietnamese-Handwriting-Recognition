@@ -41,7 +41,7 @@ eda.py → train.py → test.py → visualize.py → compare.py
 2. Chạy thử vài phút để kiểm tra môi trường (ghi vào thư mục riêng để không đè kết quả thật):
    `python train.py --data-dir DATA --output-dir outputs_smoke --limit 256 --epochs 1`
 3. EDA: `python eda.py --data-dir DATA` → `outputs/eda/`
-4. Train: `python train.py --data-dir DATA` → `outputs/vocab.json`, `outputs/bahdanau/best.weights.h5`, `history.csv`, `train_info.json`, `val_metrics.json`, `val_predictions.csv`
+4. Train: `python train.py --data-dir DATA` → `outputs/vocab.json`, `outputs/bahdanau/best.weights.h5`, `history.csv`, `val_metrics.json`, `val_predictions.csv`
 5. Test (chạy một lần ở cuối): `python test.py --data-dir DATA` → `test_metrics.json`, `test_metrics_beam3.json` và file dự đoán tương ứng
 6. Vẽ hình: `python visualize.py --data-dir DATA` → `outputs/bahdanau/figures/`
 

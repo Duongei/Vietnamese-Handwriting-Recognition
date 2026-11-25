@@ -50,6 +50,9 @@ def load_train_val(data_dir, limit=0):
 
 # Từ điển ký tự: vocab là list, vị trí trong list chính là id của ký tự
 def build_vocab(texts, path):
+    """Có vocab.json rồi thì dùng lại (để không làm hỏng trọng số đã train), chưa có thì tạo từ nhãn train."""
+    if Path(path).exists():
+        return load_vocab(path)
     vocab = SPECIAL + sorted(set("".join(texts)))
     Path(path).write_text(json.dumps(vocab[len(SPECIAL):], ensure_ascii=False), encoding="utf-8")
     return vocab
@@ -115,7 +118,7 @@ def load_image(image_bytes, augment=False):
     return image
 
 
-def make_dataset(images, labels, batch_size, training=False, augment=True):
+def make_dataset(images, labels, batch_size, training=False):
     """Dataset cho model.fit: ((ảnh, đầu vào decoder), nhãn đích).
 
     Teacher forcing (Chương 8): đầu vào decoder = nhãn bỏ token cuối, đích = nhãn bỏ <bos>.
@@ -123,7 +126,7 @@ def make_dataset(images, labels, batch_size, training=False, augment=True):
     ds = tf.data.Dataset.from_tensor_slices((images, labels))
     if training:
         ds = ds.shuffle(len(images), seed=SEED)
-    ds = ds.map(lambda img, y: ((load_image(img, training and augment), y[:-1]), y[1:]),
+    ds = ds.map(lambda img, y: ((load_image(img, training), y[:-1]), y[1:]),
                 num_parallel_calls=tf.data.AUTOTUNE)
     if not training:
         ds = ds.cache()  # val không augment nên giữ lại trong RAM sau epoch đầu
