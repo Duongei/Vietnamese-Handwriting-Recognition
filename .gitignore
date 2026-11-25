@@ -6,4 +6,3 @@ outputs/
 *.h5
 kaggle_run.ipynb
 KAGGLE_AGENT_GUIDE.md
-compare.py
